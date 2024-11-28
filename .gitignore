@@ -46,6 +46,7 @@ config.local.py
 
 # OS
 .DS_Store
-Thumbs.db config.json
+Thumbs.db 
+config.json
 config.json.bak
 test.sh
