@@ -25,6 +25,12 @@ wheels/
 venv/
 ENV/
 
+#data
+data/
+
+#logs
+logs/
+
 # IDE
 .idea/
 .vscode/
