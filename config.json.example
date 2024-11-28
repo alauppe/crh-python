@@ -1,152 +1,108 @@
 {
   "resellers": [
     {
-      "reseller_id": "20859",
-      "authentication": {
-        "scheme": "reseller-level",
-        "client_id": "reseller_client_id",
-        "client_secret": "reseller_client_secret",
-        "username": "reseller_username",
-        "password": "reseller_password"
-      },
-      "openai_api_key": "reseller_openai_api_key",
-      "customer_domains": [
-        {
-          "domain_id": "t5tele.20859.service",
-          "domain_name": "t5tele.20859.service",
-          "storage": {
-            "type": "s3",
-            "bucket_name": "t5tele-recordings",
-            "access_key": "s3_access_key",
-            "secret_key": "s3_secret_key"
-          },
-          "cdr_fetcher": {
-            "polling_interval": "5m"
-          },
-          "call_recording_handler": {
-            "enabled": true
-          },
-          "call_transcription": {
-            "enabled": true
-          },
-          "call_summary": {
-            "enabled": true,
-            "llm_prompt": "Summarize the call in a few sentences."
-          }
-        },
-        {
-          "domain_id": "xyztele.20859.service",
-          "domain_name": "xyztele.20859.service",
-          "storage": {
-            "type": "backblaze_b2",
-            "bucket_name": "xyztele-recordings",
-            "application_key_id": "b2_app_key_id",
-            "application_key": "b2_app_key"
-          },
-          "cdr_fetcher": {
-            "polling_interval": "10m"
-          },
-          "call_recording_handler": {
-            "enabled": true
-          },
-          "call_transcription": {
-            "enabled": true
-          },
-          "call_summary": {
-            "enabled": true,
-            "llm_prompt": "Provide a brief summary of the call."
-          }
-        }
-      ]
-    },
-    {
       "reseller_id": "23281",
       "authentication": {
-        "scheme": "domain-office-manager",
-        "client_id": "domain_client_id",
-        "client_secret": "domain_client_secret"
+        "scheme": "reseller-level",
+        "client_id": "EXAMPLE_CLIENT_ID",
+        "client_secret": "EXAMPLE_CLIENT_SECRET",
+        "username": "example@domain.com",
+        "password": "EXAMPLE_PASSWORD"
       },
-      "openai_api_key": "reseller_openai_api_key",
       "customer_domains": [
         {
-          "domain_id": "htel.23281.service",
-          "domain_name": "htel.23281.service",
-          "authentication": {
-            "username": "htel_username",
-            "password": "htel_password"
-          },
-          "storage": {
-            "type": "ftp",
-            "server": "ftp.htel.com",
-            "username": "ftp_user",
-            "password": "ftp_password"
+          "domain_id": "example.23281.service",
+          "openai_api_key": "YOUR_OPENAI_API_KEY",
+          "worker_concurrency": {
+            "cdr_fetcher": 1,
+            "recording_query": 2,
+            "recording_handler": 1,
+            "transcription": 1,
+            "summa": 1
           },
           "cdr_fetcher": {
-            "polling_interval": "10m"
+            "polling_interval": "5m",
+            "min_lookback": "1h",
+            "initial_lookback": "2h"
           },
-          "call_recording_handler": {
-            "enabled": true
+          "recording_query": {
+            "enabled": true,
+            "retry_intervals": [3, 5, 7, 10],
+            "polling_interval": "2m"
           },
-          "call_transcription": {
-            "enabled": false
+          "recording_handler": {
+            "enabled": true,
+            "storage": [
+              {
+                "type": "aws_s3",
+                "enabled": true,
+                "credentials": {
+                  "access_key": "YOUR_AWS_ACCESS_KEY",
+                  "secret_key": "YOUR_AWS_SECRET_KEY"
+                },
+                "bucket": "your-bucket-name",
+                "retry_intervals": [3, 5, 7, 10]
+              },
+              {
+                "type": "backblaze_b2",
+                "enabled": false,
+                "credentials": {
+                  "account_id": "YOUR_B2_ACCOUNT_ID",
+                  "application_key": "YOUR_B2_APPLICATION_KEY"
+                },
+                "bucket_id": "YOUR_B2_BUCKET_ID",
+                "retry_intervals": [3, 5, 7, 10]
+              },
+              {
+                "type": "ftp",
+                "enabled": false,
+                "host": "ftp.example.com",
+                "port": 21,
+                "username": "ftpuser",
+                "password": "ftppass",
+                "path": "/recordings",
+                "retry_intervals": [3, 5, 7, 10]
+              },
+              {
+                "type": "ftps",
+                "enabled": false,
+                "host": "ftps.example.com",
+                "port": 21,
+                "username": "ftpsuser",
+                "password": "ftpspass",
+                "path": "/recordings",
+                "retry_intervals": [3, 5, 7, 10]
+              },
+              {
+                "type": "sftp",
+                "enabled": false,
+                "host": "sftp.example.com",
+                "port": 22,
+                "username": "sftpuser",
+                "password": "sftppass",
+                "private_key_path": "/path/to/private_key",
+                "path": "/recordings",
+                "retry_intervals": [3, 5, 7, 10]
+              }
+            ],
+            "clear_raw_cdr_after_upload": true
           },
-          "call_summary": {
-            "enabled": false
-          }
-        },
-        {
-          "domain_id": "abc.23281.service",
-          "domain_name": "abc.23281.service",
-          "authentication": {
-            "username": "abc_username",
-            "password": "abc_password"
-          },
-          "storage": {
-            "type": "sftp",
-            "server": "sftp.abc.com",
-            "username": "sftp_user",
-            "password": "sftp_password"
-          },
-          "openai_api_key": "customer_openai_api_key",
-          "cdr_fetcher": {
-            "polling_interval": "15m"
-          },
-          "call_recording_handler": {
-            "enabled": true
-          },
-          "call_transcription": {
-            "enabled": true
+          "transcription": {
+            "enabled": true,
+            "retry_intervals": [3, 5, 7, 10],
+            "polling_interval": "5s",
+            "clear_transcript_after_upload": true,
+            "api_url": "http://your.transcription.service/transcribe"
           },
           "call_summary": {
             "enabled": true,
-            "llm_prompt": "Provide a detailed summary of the call."
-          }
-        },
-        {
-          "domain_id": "def.23281.service",
-          "domain_name": "def.23281.service",
-          "authentication": {
-            "username": "def_username",
-            "password": "def_password"
-          },
-          "storage": {
-            "type": "azure_blob",
-            "container_name": "def-recordings",
-            "account_name": "azure_account_name",
-            "account_key": "azure_account_key"
-          },
-          "cdr_fetcher": {
-            "polling_interval": "20m"
-          },
-          "call_recording_handler": {
-            "enabled": true
-          },
-          "call_transcription": {
-            "enabled": true
-          },
-          "call_summary": {
-            "enabled": true,
-            "llm_prompt": "Summarize the call in a concise manner."
+            "retry_intervals": [3, 5, 7, 10],
+            "polling_interval": "15s",
+            "clear_summary_after_upload": false,
+            "llm_prompt": "You are a utility AI that summarizes call conversations. Provide a detailed summary of this call conversation. Include key points discussed, any decisions made, and action items if any. Do not ask for more information or apologize if there is not enough information - simply say that the transcript is insufficient for a summary.",
+            "model": "gpt-4-turbo",
+            "temperature": 0.7,
+            "max_tokens": 16384
           }
         }
       ]
