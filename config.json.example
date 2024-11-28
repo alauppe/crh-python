@@ -1,0 +1,155 @@
+{
+  "resellers": [
+    {
+      "reseller_id": "20859",
+      "authentication": {
+        "scheme": "reseller-level",
+        "client_id": "reseller_client_id",
+        "client_secret": "reseller_client_secret",
+        "username": "reseller_username",
+        "password": "reseller_password"
+      },
+      "openai_api_key": "reseller_openai_api_key",
+      "customer_domains": [
+        {
+          "domain_id": "t5tele.20859.service",
+          "domain_name": "t5tele.20859.service",
+          "storage": {
+            "type": "s3",
+            "bucket_name": "t5tele-recordings",
+            "access_key": "s3_access_key",
+            "secret_key": "s3_secret_key"
+          },
+          "cdr_fetcher": {
+            "polling_interval": "5m"
+          },
+          "call_recording_handler": {
+            "enabled": true
+          },
+          "call_transcription": {
+            "enabled": true
+          },
+          "call_summary": {
+            "enabled": true,
+            "llm_prompt": "Summarize the call in a few sentences."
+          }
+        },
+        {
+          "domain_id": "xyztele.20859.service",
+          "domain_name": "xyztele.20859.service",
+          "storage": {
+            "type": "backblaze_b2",
+            "bucket_name": "xyztele-recordings",
+            "application_key_id": "b2_app_key_id",
+            "application_key": "b2_app_key"
+          },
+          "cdr_fetcher": {
+            "polling_interval": "10m"
+          },
+          "call_recording_handler": {
+            "enabled": true
+          },
+          "call_transcription": {
+            "enabled": true
+          },
+          "call_summary": {
+            "enabled": true,
+            "llm_prompt": "Provide a brief summary of the call."
+          }
+        }
+      ]
+    },
+    {
+      "reseller_id": "23281",
+      "authentication": {
+        "scheme": "domain-office-manager",
+        "client_id": "domain_client_id",
+        "client_secret": "domain_client_secret"
+      },
+      "openai_api_key": "reseller_openai_api_key",
+      "customer_domains": [
+        {
+          "domain_id": "htel.23281.service",
+          "domain_name": "htel.23281.service",
+          "authentication": {
+            "username": "htel_username",
+            "password": "htel_password"
+          },
+          "storage": {
+            "type": "ftp",
+            "server": "ftp.htel.com",
+            "username": "ftp_user",
+            "password": "ftp_password"
+          },
+          "cdr_fetcher": {
+            "polling_interval": "10m"
+          },
+          "call_recording_handler": {
+            "enabled": true
+          },
+          "call_transcription": {
+            "enabled": false
+          },
+          "call_summary": {
+            "enabled": false
+          }
+        },
+        {
+          "domain_id": "abc.23281.service",
+          "domain_name": "abc.23281.service",
+          "authentication": {
+            "username": "abc_username",
+            "password": "abc_password"
+          },
+          "storage": {
+            "type": "sftp",
+            "server": "sftp.abc.com",
+            "username": "sftp_user",
+            "password": "sftp_password"
+          },
+          "openai_api_key": "customer_openai_api_key",
+          "cdr_fetcher": {
+            "polling_interval": "15m"
+          },
+          "call_recording_handler": {
+            "enabled": true
+          },
+          "call_transcription": {
+            "enabled": true
+          },
+          "call_summary": {
+            "enabled": true,
+            "llm_prompt": "Provide a detailed summary of the call."
+          }
+        },
+        {
+          "domain_id": "def.23281.service",
+          "domain_name": "def.23281.service",
+          "authentication": {
+            "username": "def_username",
+            "password": "def_password"
+          },
+          "storage": {
+            "type": "azure_blob",
+            "container_name": "def-recordings",
+            "account_name": "azure_account_name",
+            "account_key": "azure_account_key"
+          },
+          "cdr_fetcher": {
+            "polling_interval": "20m"
+          },
+          "call_recording_handler": {
+            "enabled": true
+          },
+          "call_transcription": {
+            "enabled": true
+          },
+          "call_summary": {
+            "enabled": true,
+            "llm_prompt": "Summarize the call in a concise manner."
+          }
+        }
+      ]
+    }
+  ]
+}
