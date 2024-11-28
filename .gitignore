@@ -25,14 +25,13 @@ wheels/
 venv/
 ENV/
 
-#data
+# Data and State
 data/
-
-#logs
-logs/
-
-#state
 state/
+
+# Logs
+logs/
+*.log
 
 # IDE
 .idea/
@@ -40,16 +39,13 @@ state/
 *.swp
 *.swo
 
-# Logs
-*.log
+# OS
+.DS_Store
+Thumbs.db
 
 # Local configuration
 .env
 config.local.py
-
-# OS
-.DS_Store
-Thumbs.db 
 config.json
 config.json.bak
 test.sh
