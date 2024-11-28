@@ -31,6 +31,9 @@ data/
 #logs
 logs/
 
+#state
+state/
+
 # IDE
 .idea/
 .vscode/
